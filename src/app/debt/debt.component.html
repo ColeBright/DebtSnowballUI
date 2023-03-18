@@ -5,11 +5,13 @@
         </div>
         <div class="card-body">
             <form novalidate class="form-inline" (ngSubmit)="simulateAndSave()" [formGroup]="debtForm">
-
+            <div formArrayName="debts"
+            *ngFor="let debt of debts.controls; let i=index">
+                <div [formGroupName]="i">
                 <div class="form-group">
-                    <label for="balance">Balance</label>
+                    <label for="balance" attr.for="{{ 'balanceId' + i}}">Balance</label>
                     <div>
-                        <input class="form-control" id="balance" type="text" placeholder="Balance" required
+                        <input class="form-control" id="{{ 'balanceId' + i}}" type="text" placeholder="Balance" required
                             formControlName="balance">
                     </div>
                     <span class="invalid-feedback">
@@ -19,9 +21,9 @@
                     </span>
                 </div>
                 <div class="form-group">
-                    <label for="payment">Payment</label>
+                    <label for="payment" attr.for="{{ 'paymentId' + i}}">Payment</label>
                     <div>
-                        <input class="form-control" id="payment" type="text" placeholder="Payment" required
+                        <input class="form-control" id="{{ 'paymentId' + i}}" type="text" placeholder="Payment" required
                             formControlName="payment">
                     </div>
                     <span class="invalid-feedback">
@@ -30,6 +32,8 @@
             </span> -->
                     </span>
                 </div>
+            </div>
+            </div>
                 <div class="form-group row mb-2">
                     <div class="offset-md-2 col-md-4">
                         <button class="btn btn-primary" type="submit">
@@ -37,7 +41,8 @@
                         </button>
                     </div>
                     <div class="offset-md-2 col-md-4">
-                        <button class="btn btn-primary" type="submit">
+                        <button class="btn btn-primary" type="button"
+                        (click)="addDebt()">
                             +
                         </button>
                     </div>
